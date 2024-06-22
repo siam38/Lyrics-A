@@ -40,9 +40,11 @@ async function getLyricsFromUrl(url) {
     const response = await axios.get(url, { headers });
     const $ = cheerio.load(response.data);
     const lyricsHtml = $('div[data-lyrics-container|=true]');
+
     let lyrics = '';
     lyricsHtml.each((_, elem) => {
-        lyrics += $(elem).text() + '\n';
+        const text = $(elem).html().replace(/<br\s*\/?>/gi, '\n').replace(/<\/?[^>]+(>|$)/g, '');
+        lyrics += text + '\n\n';
     });
     return lyrics.trim();
 }
