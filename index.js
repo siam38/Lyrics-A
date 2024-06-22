@@ -25,7 +25,7 @@ const headers = {
 // Lyrics search function
 async function findLyrics(query) {
     const res = await axios.get(`https://genius.com/api/search?q=${encodeURIComponent(query)}`, { headers });
-    const hits = res.data.response.sections[0].hits;
+    const hits = res.data.response.hits;
     const result = hits.map(hit => ({
         full_title: hit.result.full_title,
         artist: hit.result.primary_artist.name,
